@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini Twitter</title>
+    <!-- CSS FILE LINK -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    <style>
+        /* Ваші власні CSS стилі тут */
+        .custom-hover {
+            background-color: white;
+            cursor: pointer;
+        }
+
+            .custom-hover:hover {
+            background-color: #f8f8fe;
+
+        }
+
+        .r-1bimlpy {
+        background-color: rgb(207, 217, 222);
+           }
+        .r-1adg3ll {
+            display: block;
+        }
+        .r-1udh08x {
+         overflow: hidden;
+        }
+
+
+
+    </style>
+
+</head>
+
+<div class="modal" id="myModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Change profile</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save profile</button>
+    </form>
+  </div>
+</div>
+
+
+<body class="">
+    <div class="container-fluid container-md">
+           <!-- xs NAV BAR -->
+                <nav class=" bg-light xs-nav fixed-bottom    d-sm-none">
+                    <div class="container-fluid">
+                        <div class="row h-50">
+                            <div class="col-3">
+                                <span><i class="fa-solid fa-house fs-3 py-3"></i></span>
+                            </div>
+                            <div class="col-3">
+                            <span><i class="fa-solid fa-magnifying-glass fs-2 py-3 "></i></span>
+                            </div>
+                            <div class="col-3">
+                            <span><i class="fa-solid fa-bell fs-2 py-3"></i></span>
+                            </div>
+                            <div class="col-3 ">
+                                <span><i class="fa-solid fa-envelope fs-2 py-3"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+         <div class="row ">
+            <!-- LEFT SIDE BAR -->
+            <div
+                class="d-none col-sm-2  d-sm-block  col-md-3 col-lg-3 d-flex flex-column text-sm-end text-md-start  align-items-lg-start left_sidebar border-end ">
+                <div>
+                    <span><i class="fa-brands fa-twitter display-5 text-info py-3  "></i></span>
+
+                </div>
+                <div class="d-flex align-items-center justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-house fs-3 py-3"></i></span>
+                    <a href="/home/" class="btn btn-light rounded-pill d-md-block fs-4 pt-3 ps-2 fw-bold">Home</a>
+                </div>
+
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-brands fa-twitter fs-2 py-3 d-none d-md-block"></i></span>
+                    <a href="{% url 'add_post' %}" class="btn btn-outline-inf d-none d-md-block fs-4 pt-3 ps-2">Add tweet</a>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-bell fs-2 py-3"></i></span>
+                    <p class="d-none d-md-block fs-4 pt-3 ps-2">Notifications</p>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-envelope fs-2 py-3"></i></span>
+                    <p class="d-none d-md-block fs-4 pt-3 ps-2">Messages</p>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-bookmark fs-2 py-3"></i></span>
+                    <p class="d-none d-md-block fs-4 pt-3 ps-2">Bookmark</p>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-file-lines fs-2 py-3"></i></span>
+                    <a href="/users/" class="btn btn-light rounded-pill d-none d-md-block fs-4 pt-3 ps-2">User List</a>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-user fs-2 py-3"></i></span>
+                    <p class="d-none d-md-block fs-4 pt-3 ps-2">Profile</p>
+                </div>
+                <div class="d-flex align-items-center  justify-content-sm-end justify-content-md-start">
+                    <span><i class="fa-solid fa-ellipsis fs-2 py-3"></i></span>
+                    <p class="d-none d-md-block fs-4 pt-3 ps-2">More</p>
+                </div>
+            </div>
+
+             <!-- MAIN SECTION -->
+            <div class="col-12 col-sm-10 col-md-9 col-lg-6  main_bar ">
+
+                     <!-- TWEET's & list & comments -->
+                        {% block content %}
+
+                        {% endblock %}
+            </div>
+               <!-- RIGHT SIDE BAR -->
+            <div class="col-lg-3 d-none d-lg-block  w-25 h-25 right_side_bar">
+                <div class="">
+                    <div class="bg-opacity-10 bg-black rounded-pill">
+                        <div class="row d-flex align-items-center ">
+                            <div class="col-2 text-end fs-4">
+                                <span><i class="fa-solid fa-magnifying-glass ps-4"></i></span>
+                            </div>
+                            <div class="col-10"><input type="text"
+                                    class="form-control-lg border-0 me-1 w-75 bg-transparent"
+                                    placeholder="Search Twitter"></div>
+                        </div>
+                    </div>
+                    <div class="row bg-opacity-10 bg-black mx-1 my-2 pb-3 rounded-3">
+                        <div class="col">
+                            <div class="trending">
+                                <p class="fs-6 fw-bold py-2">Trends for you</p>
+
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p class="m-0">Technology . Trending</p>
+                                    </div>
+                                    <div class="col-3 text-end">
+                                        <span><i class="fa-solid fa-ellipsis pe-2"></i></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-6 fw-bold mb-0">#TikTok</p>
+                                        <p class="">101k Tweets</p>
+                                    </div>
+                                </div>
+
+                                <span class="text-info">Show more</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+            <!-- FONT AWESOME -->
+    <script src="{% static 'js/kit.fontawesome.com_bf1c643ee2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                    const clickableBlocks = document.querySelectorAll('.row[data-url]');
+
+                    clickableBlocks.forEach(function (block) {
+                        block.addEventListener('click', function () {
+                            const url = block.getAttribute('data-url');
+                            window.location.href = url; // Перенаправлення на URL при натисканні на блок
+                        });
+                    });
+                });
+    </script>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,36 @@
+{% extends "base1.html" %}
+
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Pic</th>
+      <th scope="col">Name</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+    {% for user in users %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <th>{% if user.profile_picture %}
+  <div class="col-md-6">
+    <img src="{{ user.profile_picture.url }}" class="img-fluid" style="max-height: 25px; object-fit: cover;">
+  </div>
+{% endif %}</th>
+      <td>{{user.name}}</td>
+      <td><a href="{% url 'user_detail' user.username %}">{{user.username}}</a></td>
+      <td>{{user.email}}</td>
+    </tr>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
+
+

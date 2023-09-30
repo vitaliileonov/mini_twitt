@@ -1,0 +1,77 @@
+{% extends "base1.html" %}
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col pt-2 ">
+        <div class="row">
+            <div class="col-2">
+                {% if user.profile_picture %}
+                <img class="rounded-circle" src="{{ user.profile_picture.url }}" alt="" height="50px">
+                {% endif %}
+            </div>
+            <div class="col-9 col-sm-10 ">
+                <form class="needs-validation" novalidate method="post" action="{% url 'add_post' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_div }}
+
+                    <div class="ps-3 d-flex text-info">
+                        <p><span><i class="fa-solid fa-earth-americas "></i></span></p>
+                        <p class="fw-bold ps-1 ">Everyone can reply</p>
+                        <hr>
+                    </div>
+                    <div class="row pb-2 justify-content-center">
+                        <div class="col-9 text-info">
+                            <span class="ps-3"><i class="fa-solid fa-image"></i></span>
+                            <span class="ps-3"><i class="fa-solid fa-gift"></i></span>
+                            <span class="ps-3"><i class="fa-solid fa-face-grin"></i></span>
+                            <span class="ps-3"><i class="fa-solid fa-location-pin"></i></span>
+                        </div>
+                        <div class="col-3 col-sm-2 ">
+                            <button class="text-decoration-none fs-6 fw-bold text-white bg-info py-1 px-3 rounded-pill" type="submit">Tweet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    {% for post in posts %}
+        {% if user == 'all' or user == post.user.username %}
+
+    <div class="row mt-1 border d-flex custom-hover" data-url="{% url 'post_detail' post.pk %}">
+        <div class="col-2 mt-2">
+            {% if post.user.profile_picture %}
+            <img class="rounded-circle" src="{{ post.user.profile_picture.url }}" alt="" height="50px">
+            {% endif %}
+        </div>
+        <div class="col-9 ">
+            <div class="row d-flex justify-content-between align-items-center ps-1">
+                <div class="col-10 pt-2 ">
+                    <div>
+                        <p><a href="{% url 'user_detail' post.user.username %}" class="link-dark"><span class="fw-bold">{{post.user.name}}</span></a>@{{post.user.username}} . {{post.create_at}}</p>
+                    </div>
+                </div>
+                <div class="col-1 me-2 ps-0">
+                    <div><span><i class="fa-solid fa-ellipsis fs-5 py-3"></i></span></div>
+                </div>
+            </div>
+            <div class="col">
+
+                {{post.content|truncatechars:200}}
+
+                <div class="row pt-4">
+                    <div class="col"><span><a href="{% url 'post_detail' post.pk %}"><i class="fa-solid fa-comment"></i></a></span></div>
+                    <div class="col"><span><i class="fa-solid fa-share-from-square"></i></span>
+                    </div>
+                    <div class="col"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col"><span><i class="fa-solid fa-share-nodes"></i></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}

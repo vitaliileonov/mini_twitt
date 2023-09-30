@@ -1,0 +1,52 @@
+{% extends "base1.html" %}
+
+{% block content %}
+
+ <div class="row mt-1 border d-flex  ">
+                            <div class="col-3 mt-2">
+
+                                <img class="rounded-circle" src="./asserts/images/profile.jfif" alt="" height="50px">
+                            </div>
+                            <div class="col-9 ">
+                                <div class="row d-flex justify-content-between align-items-center ps-1">
+                                    <div class="col-10 pt-2 ">
+                                        <div>
+                                            <p><span class="fw-bold">{{post.user.username}} </span>@{{post.user.username}} . {{post.create_at}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 me-2 ps-0">
+                                        <div><span><i class="fa-solid fa-ellipsis fs-5 py-3"></i></span></div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    {{post.content}}
+                                    <br>
+                                    <div class="row pt-4">
+                                        <div class="col"><span><i class="fa-solid fa-comment"></i></span></div>
+                                        <div class="col"><span><i class="fa-solid fa-share-from-square"></i></span>
+                                        </div>
+                                        <div class="col"><i class="fa-solid fa-heart"></i></div>
+                                        <div class="col"><span><i class="fa-solid fa-share-nodes"></i></span></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+<body>
+    <h1>{{title}}</h1>
+    {% for comm in comment %}
+        <div>
+            <p>{{comm.user.username}}</p>
+            <p>{{comm.content}}</p>
+            <p>{{comm.create_at}}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+</body>
+
+
+{% endblock %}

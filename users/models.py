@@ -13,11 +13,11 @@ class User(models.Model):
     profile_picture = models.ImageField(upload_to="users/profile_images", null=True, blank=True)
     title_picture = models.ImageField(upload_to="users/title_images", null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        # Якщо поле 'name' порожнє, встановіть його значення на основі 'username'
-        if not self.name:
-            self.name = self.username
-        super(User, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Якщо поле 'name' порожнє, встановіть його значення на основі 'username'
+    #     if not self.name:
+    #         self.name = self.username
+    #     super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'User: {self.username} {self.email}'
